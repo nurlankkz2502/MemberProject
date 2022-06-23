@@ -14,7 +14,7 @@
         <SolidColorBrush x:Key="resThird" Color="#FFE100"/>
     </Window.Resources>
 
-    <Grid>
+    <Grid Initialized="Grid_Initialized">
         <Grid.RowDefinitions>
             <RowDefinition  Height="42*" ></RowDefinition>
             <RowDefinition Height="63*"></RowDefinition>
@@ -60,7 +60,7 @@
             <TextBox FontSize="16" Margin="5" x:Name="txtBoxDate"></TextBox>
             <TextBlock FontSize="16" Padding="5" Text="Номер телефона"></TextBlock>
             <TextBox FontSize="16" Margin="5" x:Name="txtBoxPhone"></TextBox>
-            <Button FontSize="16" Margin="5,20,5,0" Content="Добавить" Click="Button_Click" />
+            <Button FontSize="16" Margin="5,20,5,0" Content="Добавить" />
         </StackPanel>
 
         <Viewbox x:Name="ViewBoxCalendar" HorizontalAlignment="Center" Grid.Row="6" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="5">

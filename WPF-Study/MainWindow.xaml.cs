@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPF_Study.Abstractions;
 
 namespace WPF_Study
 {
@@ -26,19 +27,21 @@ namespace WPF_Study
             InitializeComponent();
             SetDays();
             SetDate();
-            FileName = "list.csv";
-
-
+            FileName = "list.txt";
+            ViewCalendar = MyCalendar;
+            CheckBirthDate();
 
         }
 
-        List<Person> persons = new List<Person>();
+        List<Person> Users = new List<Person>();
         List<DayOfWeek> dayOfWeeks = new List<DayOfWeek>();
+        private EventArgs e;
 
         public event EventHandler Read;
-
+        public int ListCount { get; set; }
         public string FileName { get; set; }
-
+        public Calendar ViewCalendar { get; set; }
+        List<Person> IView.persons {get => Users;set => Users = value; }
         public void SetDays()
         {
             dayOfWeeks.Add(MondayControl);
@@ -255,6 +258,10 @@ namespace WPF_Study
                     SelectDate(date);
                     CheckTodaySelection();
                 }
+                else
+                {
+                    MyCalendar.SelectedDates.Add( date);
+                }
             }
         }
 
@@ -282,17 +289,34 @@ namespace WPF_Study
                 MyCalendar.DisplayDate = date;
         }
 
+    
+        public DateTime GetDisplayDate()
+        {
+            return MyCalendar.DisplayDate;
+        }
+
+
+        private void Grid_Initialized(object sender, EventArgs e)
+        {
+            if (Read != null)
+                Read.Invoke(this, e);
+        }
+
         private void Window_Activated(object sender, EventArgs e)
         {
             if (Read != null)
                 Read.Invoke(this, e);
-
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        public void CheckBirthDate()
         {
-            if (Read != null)
-                Read.Invoke(this, e);
+            foreach(DayOfWeek d in dayOfWeeks)
+                foreach(Person p in Users)
+                    if (p.BirthDate.ToString("M")==d.TimeDate.ToString("M"))
+                    {
+                        UserView temp = new UserView();
+
+                        d.DayPanel.Children.Add(temp);
+                    }
         }
     }
 }

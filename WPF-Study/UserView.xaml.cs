@@ -23,6 +23,8 @@ namespace WPF_Study
         public UserView()
         {
             InitializeComponent();
+
         }
+
     }
 }

@@ -8,6 +8,8 @@ namespace WPF_Study.Abstractions
     {
         void ShowIn(string message);
         void ReadFile(string path);
+        int Count();
+        List<Person> GetList();
         Person ShowData(int a);
     }
 }

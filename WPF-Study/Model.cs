@@ -48,7 +48,7 @@ namespace WPF_Study
             {
                 try
                 {
-                    using (StreamReader sr = new StreamReader("list.csv"))
+                    using (StreamReader sr = new StreamReader(str))
                     {
 
 
@@ -57,10 +57,10 @@ namespace WPF_Study
                         // the file is reached.
                         while ((line = sr.ReadLine()) != null)
                         {
-                            string[] arr = { ";" };
+                            string[] arr = { "\t" };
                             arr = line.Split(arr, StringSplitOptions.RemoveEmptyEntries);
                             DateTime birth = Convert.ToDateTime(arr[2]);
-                            Person temp = new Person(arr[0], arr[1], birth, arr[3]);
+                            Person temp = new Person(arr[1], arr[0], birth, arr[3]);
                             Persons.Add(temp);
 
                         }
@@ -87,16 +87,17 @@ namespace WPF_Study
                 return null;
         }
 
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
+    
+        public List<Person> GetList()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-        }
+            return Persons;
 
+        }
 
         public void ShowIn(string message)
         {
             Debug.WriteLine(message);
-            OnPropertyChanged();
+           
         }
 
     }
