@@ -1,0 +1,131 @@
+﻿<Window x:Class="WPF_Study.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_Study"
+        xmlns:control = "clr-namespace:WPF_Study"
+        mc:Ignorable="d"
+
+        Title="" Height="1000" Width="1500" Activated="Window_Activated">
+    <Window.Resources>
+        <SolidColorBrush x:Key="resFirsе" Color="#FF33D612"/>
+        <SolidColorBrush x:Key="resSecond" Color="#FFCBECCB"/>
+        <SolidColorBrush x:Key="resThird" Color="#FFE100"/>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition  Height="42*" ></RowDefinition>
+            <RowDefinition Height="63*"></RowDefinition>
+            <RowDefinition  Height="42*" ></RowDefinition>
+            <RowDefinition Height="38*" ></RowDefinition>
+            <RowDefinition Height="54*" ></RowDefinition>
+
+            <RowDefinition Height="307*"/>
+            <RowDefinition Height="411.761"></RowDefinition>
+            <RowDefinition Height="26*"></RowDefinition>
+
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="7*"></ColumnDefinition>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="5*"></ColumnDefinition>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="5*"></ColumnDefinition>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="10*"></ColumnDefinition>
+            <ColumnDefinition Width="10*"></ColumnDefinition>
+            <ColumnDefinition Width="10*"></ColumnDefinition>
+            <ColumnDefinition Width="10*"></ColumnDefinition>
+            <ColumnDefinition Width="10*"></ColumnDefinition>
+            <ColumnDefinition Width="10*"></ColumnDefinition>
+            <ColumnDefinition Width="10*"></ColumnDefinition>
+
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Background="#FFEAEAEA" Grid.Column="0" Grid.ColumnSpan ="15" Grid.RowSpan="2"></TextBlock>
+        <TextBlock Grid.Row="2" Background="#FFEAEAEA" Grid.Column="0" Grid.ColumnSpan ="15" Grid.RowSpan="2"></TextBlock>
+        <TextBlock Grid.Row="1" Background="#FFEAEAEA" Grid.Column="0" Grid.ColumnSpan ="7" Grid.RowSpan="9" ></TextBlock>
+        <TextBlock Grid.Row="14" Background="#FFEAEAEA" Grid.Column="0" Grid.ColumnSpan ="14" ></TextBlock>
+        <Button Grid.Row="1" Grid.Column="13" Grid.ColumnSpan="2" Margin="20" FontSize="16" Grid.RowSpan="2" >Удалить</Button>
+
+        <StackPanel Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="4" x:Name="DataFieldsPanle">
+            <TextBlock FontSize="16" Padding="5" Text="Имя"></TextBlock>
+            <TextBox FontSize="16" Margin="5" x:Name="txtBoxName"></TextBox>
+            <TextBlock FontSize="16" Padding="5" Text="Фамилия"></TextBlock>
+            <TextBox FontSize="16" Margin="5" x:Name="txtBoxLastName"></TextBox>
+            <TextBlock FontSize="16" Padding="5,5,0,5" Text="Дата рождения (dd.mm.yyyy)"></TextBlock>
+            <TextBox FontSize="16" Margin="5" x:Name="txtBoxDate"></TextBox>
+            <TextBlock FontSize="16" Padding="5" Text="Номер телефона"></TextBlock>
+            <TextBox FontSize="16" Margin="5" x:Name="txtBoxPhone"></TextBox>
+            <Button FontSize="16" Margin="5,20,5,0" Content="Добавить" Click="Button_Click" />
+        </StackPanel>
+
+        <Viewbox x:Name="ViewBoxCalendar" HorizontalAlignment="Center" Grid.Row="6" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="5">
+            <Calendar x:Name="MyCalendar" DisplayDateChanged="MyCalendar_DisplayDateChanged" SelectedDatesChanged="MyCalendar_SelectedDatesChanged"/>
+        </Viewbox>
+
+        <ScrollViewer Grid.Row="5" Grid.Column="8" Grid.ColumnSpan="7" Grid.RowSpan="2"></ScrollViewer>
+
+        <StackPanel x:Name="WeekSwitchPanel" Grid.Row="4" Grid.Column="7" Grid.ColumnSpan="3" Orientation="Horizontal">
+            <TextBlock Margin="10"></TextBlock>
+            <Button x:Name="btnPrevWeek" Padding="15" BorderBrush="Transparent" Background="Transparent" Click="btnPrevWeek_Click">
+                <Image Source="https://img.icons8.com/ios-filled/344/sort-left.png"/>
+            </Button>
+            <TextBlock Margin="10"></TextBlock>
+            <Button  x:Name="btnNxtWeek" Padding="15" BorderBrush="Transparent" Background="Transparent" Click="btnNxtWeek_Click" >
+                <Image Source="https://img.icons8.com/ios-filled/344/sort-right.png"/>
+            </Button>
+            <TextBlock x:Name="txtBMonth" Margin="10,10,0,10" FontSize="28" HorizontalAlignment="Center" VerticalAlignment="Center" Text="April"></TextBlock>
+            <TextBlock FontSize="28" HorizontalAlignment="Center" VerticalAlignment="Center"  Text=","></TextBlock>
+            <TextBlock x:Name="txtFirsDateInWeek" Margin="10" FontSize="28" HorizontalAlignment="Center" VerticalAlignment="Center"  Text="2"></TextBlock>
+            <TextBlock FontSize="28" HorizontalAlignment="Center" VerticalAlignment="Center"  Text="-"></TextBlock>
+            <TextBlock x:Name="txtLastDateInWeek" Margin="10" FontSize="28" HorizontalAlignment="Center" VerticalAlignment="Center"  Text="8"></TextBlock>
+            <TextBlock x:Name="txtYear" Margin="10" FontSize="28" HorizontalAlignment="Center" VerticalAlignment="Center"  Text="2022"></TextBlock>
+        </StackPanel>
+
+        <Border Grid.Row="5"  Grid.Column="7" Grid.RowSpan="2" BorderBrush="gray" BorderThickness="0,0,1,0">
+            <StackPanel>
+                <control:DayOfWeek x:Name="MondayControl"/>
+            </StackPanel>
+        </Border>
+        <Border Grid.Row="5" Grid.Column="8" Grid.RowSpan="2" BorderBrush="gray" BorderThickness="0,0,1,0">
+            <StackPanel >
+                <control:DayOfWeek x:Name="TuesdayControl"/>
+            </StackPanel>
+        </Border>
+        <Border Grid.Row="5" Grid.Column="9"  Grid.RowSpan="2" BorderBrush="gray" BorderThickness="0,0,1,0">
+            <StackPanel >
+                <control:DayOfWeek x:Name="WednesdayControl"/>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="5" Grid.Column="10" Grid.RowSpan="2" BorderBrush="gray" BorderThickness="0,0,1,0">
+            <StackPanel >
+                <control:DayOfWeek x:Name="ThursdayControl"/>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="5" Grid.Column="11" Grid.RowSpan="2" BorderBrush="gray" BorderThickness="0,0,1,0">
+            <StackPanel>
+                <control:DayOfWeek x:Name="FridayControl" />
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="5" Grid.Column="12" Grid.RowSpan="2" BorderBrush="gray" BorderThickness="0,0,1,0">
+            <StackPanel>
+                <control:DayOfWeek x:Name="SaturdayControl"/>
+            </StackPanel>
+        </Border>
+
+        <StackPanel Grid.Row="5" Grid.Column="13" Grid.RowSpan="2">
+            <control:DayOfWeek x:Name="SundayControl"/>
+        </StackPanel>
+
+
+
+
+    </Grid>
+</Window>
