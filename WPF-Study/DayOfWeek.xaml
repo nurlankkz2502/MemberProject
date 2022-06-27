@@ -16,5 +16,6 @@
         <TextBox  Grid.Row="0" IsReadOnly="True" FontSize="14"  x:Name="txtBoxDay" HorizontalContentAlignment="Left" Padding="5" VerticalContentAlignment="Center"  Background="#FF5CC75C"  ></TextBox>
         <TextBox IsReadOnly="True" BorderBrush="DarkGray"  Grid.Row="1" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" Padding="5" FontSize="16" x:Name="txtBoxDate" ></TextBox>
         <StackPanel Background="white" x:Name="DayPanel" Grid.Row=" 2"></StackPanel>
+        
     </Grid>
 </UserControl>

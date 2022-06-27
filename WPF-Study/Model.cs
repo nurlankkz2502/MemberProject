@@ -20,7 +20,7 @@ using WPF_Study.Abstractions;
 
 namespace WPF_Study
 {
-    class Person
+    public class Person
     {
         public string Name { get; set; }
         public string LastName { get; set; }
@@ -38,12 +38,49 @@ namespace WPF_Study
     class Model : Abstractions.IModel, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        public string Path;
 
         public List<Person> Persons = new List<Person>();
-
+        public void AddPerson(Person user)
+        {
+            Persons.Add(user);
+        }
+        public void DeletePerson(Person user)
+        {
+            Persons.Remove(user);
+            WriteFile();
+        }
+        public void WriteFile()
+        {
+            if (Persons.Count != 0)
+            {
+                try
+                {
+                    using (StreamWriter st = new StreamWriter(Path))
+                    {
+                        foreach(Person user in Persons)
+                        {
+                            st.Write(user.Name);
+                            st.Write("\t");
+                            st.Write(user.LastName);
+                            st.Write("\t");
+                            st.Write(user.BirthDate);
+                            st.Write("\t");
+                            st.WriteLine(user.PhoneNumber);
+                        }
+                    }
+                }
+                catch(Exception e)
+                {
+                    Debug.WriteLine("The file could not be read:");
+                    Debug.WriteLine(e.Message);
+                }
+            }
+        }
 
         public void ReadFile(string str)
         {
+            Path = str;
             if (Persons.Count == 0)
             {
                 try
@@ -60,7 +97,7 @@ namespace WPF_Study
                             string[] arr = { "\t" };
                             arr = line.Split(arr, StringSplitOptions.RemoveEmptyEntries);
                             DateTime birth = Convert.ToDateTime(arr[2]);
-                            Person temp = new Person(arr[1], arr[0], birth, arr[3]);
+                            Person temp = new Person(arr[0], arr[1], birth, arr[3]);
                             Persons.Add(temp);
 
                         }

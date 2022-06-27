@@ -29,15 +29,20 @@ namespace WPF_Study
             SetDate();
             FileName = "list.txt";
             ViewCalendar = MyCalendar;
-            CheckBirthDate();
 
         }
-
+        public int a = 0;
         List<Person> Users = new List<Person>();
         List<DayOfWeek> dayOfWeeks = new List<DayOfWeek>();
-        private EventArgs e;
+       
+        public string txtName { get => txtBoxName.Text;set=>txtBoxName.Text = value; }
+        public string txtLastName { get => txtBoxLastName.Text; set => txtBoxLastName.Text = value; }
+        public string txtBirthDate { get=>txtBoxDate.Text; set=>txtBoxDate.Text=value; }
+        public string txtPhone { get=>txtBoxPhone.Text; set=>txtBoxPhone.Text=value; }
 
         public event EventHandler Read;
+        public event EventHandler Write;
+        public event EventHandler Delete;
         public int ListCount { get; set; }
         public string FileName { get; set; }
         public Calendar ViewCalendar { get; set; }
@@ -236,6 +241,7 @@ namespace WPF_Study
                     DaySelection(day);
                     SelectDate(MyCalendar.DisplayDate);
                     CheckTodaySelection();
+                    CheckBirthDate();
                 }
             }
         }
@@ -257,6 +263,7 @@ namespace WPF_Study
                     DaySelection(day);
                     SelectDate(date);
                     CheckTodaySelection();
+                    CheckBirthDate();
                 }
                 else
                 {
@@ -273,6 +280,7 @@ namespace WPF_Study
             date = date.AddDays(7);
             MyCalendar.SelectedDate = date;
             SelectDate(date);
+            CheckBirthDate();
             if (MyCalendar.DisplayDate.Month != date.Month)
                 MyCalendar.DisplayDate = date;
         }
@@ -285,11 +293,46 @@ namespace WPF_Study
             date = date.AddDays(-7);
             MyCalendar.SelectedDate = date;
             SelectDate(date);
+            CheckBirthDate();
             if (MyCalendar.DisplayDate.Month != date.Month)
                 MyCalendar.DisplayDate = date;
         }
 
-    
+        public void SelectUserView(object sender)
+        {
+            foreach (DayOfWeek dow in dayOfWeeks)
+                if (dow != sender)
+                {
+                    dow.DayPanel.Children.Clear();
+                    foreach (Person p in Users)
+                        if (p.BirthDate.ToString("M") == dow.TimeDate.ToString("M"))
+                        {
+                            UserView temp = new UserView(p.Name, p.LastName, p.BirthDate.ToString("d"), p.PhoneNumber);
+                           
+                            dow.DayPanel.Children.Add(temp);
+                        }
+                }
+        }
+        public Person CheckSelectedUser()
+        {
+            foreach (DayOfWeek d in dayOfWeeks)
+            {
+                foreach (Person p in Users)
+                {
+                    UserView temp = new UserView(p.Name, p.LastName, p.BirthDate.ToString("d"), p.PhoneNumber);
+                    temp.IsSelected = true;
+                    foreach(UserView view in d.MyItems)
+                    {
+                        if (temp.Name == view.Name&&temp.LastName==view.LastName&&temp.BirthDate==view.BirthDate&&temp.BirthDate==view.BirthDate)
+                            return p;
+                    }
+                    
+                }
+               
+            }
+            return null;
+
+        }
         public DateTime GetDisplayDate()
         {
             return MyCalendar.DisplayDate;
@@ -304,19 +347,79 @@ namespace WPF_Study
 
         private void Window_Activated(object sender, EventArgs e)
         {
-            if (Read != null)
-                Read.Invoke(this, e);
+            if (a==0)
+                if (Read != null) { 
+                    Read.Invoke(this, e);
+                    a = 1;
+                }
         }
         public void CheckBirthDate()
         {
-            foreach(DayOfWeek d in dayOfWeeks)
-                foreach(Person p in Users)
-                    if (p.BirthDate.ToString("M")==d.TimeDate.ToString("M"))
-                    {
-                        UserView temp = new UserView();
+            if (MyCalendar != null)
+                foreach(DayOfWeek d in dayOfWeeks)
+                {
+                    d.DayPanel.Children.Clear();
+                    foreach(Person p in Users)
+                        if (p.BirthDate.ToString("M")==d.TimeDate.ToString("M"))
+                        {
+                            UserView temp = new UserView(p.Name,p.LastName,p.BirthDate.ToString("d"),p.PhoneNumber);
+                            d.MyItems.Add(temp);
+                            d.DayPanel.Children.Add(temp);
+                        }
+                }
+        }
 
-                        d.DayPanel.Children.Add(temp);
-                    }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            DateTime time = Convert.ToDateTime(txtBoxDate.Text);
+            Person temp = new Person(txtBoxName.Text, txtBoxLastName.Text, time, txtBoxPhone.Text);
+            if(Write!=null)
+                Write.Invoke(this, e);
+            CheckBirthDate();
+
+        }
+        //Background="#FF5CC75C"
+
+        private void MondayControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            SelectUserView(sender);
+        }
+
+        private void TuesdayControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            SelectUserView(sender);
+        }
+
+        private void WednesdayControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            SelectUserView(sender);
+        }
+
+        private void ThursdayControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            SelectUserView(sender);
+        }
+
+        private void FridayControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            SelectUserView(sender);
+        }
+
+        private void SaturdayControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            SelectUserView(sender);
+        }
+
+        private void SundayControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            SelectUserView(sender);
+        }
+
+        private void Delete_click(object sender, RoutedEventArgs e)
+        {
+            if (Delete != null)
+                Delete.Invoke(this, e);
+            CheckBirthDate();
         }
     }
 }

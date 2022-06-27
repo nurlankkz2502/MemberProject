@@ -16,6 +16,8 @@ namespace WPF_Study
             this.view = view;
 
             this.view.Read += ReadText;
+            this.view.Write += WriteText;
+            this.view.Delete += DeleteRecord;
 
         }
 
@@ -28,12 +30,30 @@ namespace WPF_Study
             {
                 PersonsPrs = model.GetList();
                 view.persons = PersonsPrs;
+                view.CheckBirthDate();
 
             }
             catch
             {
                 Debug.WriteLine("invalid data field");
             }
+        }
+        void WriteText(object sender, EventArgs e)
+        {
+            try
+            {
+                Person temp = new Person(view.txtName, view.txtLastName, Convert.ToDateTime(view.txtBirthDate), view.txtPhone);
+                model.AddPerson(temp);
+                model.WriteFile();
+            }
+            catch
+            {
+                Debug.WriteLine("invalid data field");
+            }
+        }
+        void DeleteRecord(object sender, EventArgs e)
+        {
+            model.DeletePerson(view.CheckSelectedUser());
         }
     }
 }

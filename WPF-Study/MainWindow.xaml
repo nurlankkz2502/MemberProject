@@ -7,7 +7,7 @@
         xmlns:control = "clr-namespace:WPF_Study"
         mc:Ignorable="d"
 
-        Title="" Height="1000" Width="1500" Activated="Window_Activated">
+        Title="" Height="800" Width="1500" Activated="Window_Activated">
     <Window.Resources>
         <SolidColorBrush x:Key="resFirsе" Color="#FF33D612"/>
         <SolidColorBrush x:Key="resSecond" Color="#FFCBECCB"/>
@@ -16,13 +16,13 @@
 
     <Grid Initialized="Grid_Initialized">
         <Grid.RowDefinitions>
-            <RowDefinition  Height="42*" ></RowDefinition>
-            <RowDefinition Height="63*"></RowDefinition>
-            <RowDefinition  Height="42*" ></RowDefinition>
+            <RowDefinition  ></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition ></RowDefinition>
             <RowDefinition Height="38*" ></RowDefinition>
-            <RowDefinition Height="54*" ></RowDefinition>
+            <RowDefinition Height="50*" ></RowDefinition>
 
-            <RowDefinition Height="307*"/>
+            <RowDefinition Height="230*"/>
             <RowDefinition Height="411.761"></RowDefinition>
             <RowDefinition Height="26*"></RowDefinition>
 
@@ -49,8 +49,7 @@
         <TextBlock Grid.Row="2" Background="#FFEAEAEA" Grid.Column="0" Grid.ColumnSpan ="15" Grid.RowSpan="2"></TextBlock>
         <TextBlock Grid.Row="1" Background="#FFEAEAEA" Grid.Column="0" Grid.ColumnSpan ="7" Grid.RowSpan="9" ></TextBlock>
         <TextBlock Grid.Row="14" Background="#FFEAEAEA" Grid.Column="0" Grid.ColumnSpan ="14" ></TextBlock>
-        <Button Grid.Row="1" Grid.Column="13" Grid.ColumnSpan="2" Margin="20" FontSize="16" Grid.RowSpan="2" >Удалить</Button>
-
+        
         <StackPanel Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="4" x:Name="DataFieldsPanle">
             <TextBlock FontSize="16" Padding="5" Text="Имя"></TextBlock>
             <TextBox FontSize="16" Margin="5" x:Name="txtBoxName"></TextBox>
@@ -60,7 +59,9 @@
             <TextBox FontSize="16" Margin="5" x:Name="txtBoxDate"></TextBox>
             <TextBlock FontSize="16" Padding="5" Text="Номер телефона"></TextBlock>
             <TextBox FontSize="16" Margin="5" x:Name="txtBoxPhone"></TextBox>
-            <Button FontSize="16" Margin="5,20,5,0" Content="Добавить" />
+            <Button FontSize="16" Margin="5,20,5,20" Content="Добавить" Click="Button_Click" />
+            <Button FontSize="16" Margin="5" Click="Delete_click" >Удалить</Button>
+
         </StackPanel>
 
         <Viewbox x:Name="ViewBoxCalendar" HorizontalAlignment="Center" Grid.Row="6" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="5">
@@ -88,40 +89,40 @@
 
         <Border Grid.Row="5"  Grid.Column="7" Grid.RowSpan="2" BorderBrush="gray" BorderThickness="0,0,1,0">
             <StackPanel>
-                <control:DayOfWeek x:Name="MondayControl"/>
+                <control:DayOfWeek x:Name="MondayControl" MouseDoubleClick="MondayControl_MouseDoubleClick"/>
             </StackPanel>
         </Border>
         <Border Grid.Row="5" Grid.Column="8" Grid.RowSpan="2" BorderBrush="gray" BorderThickness="0,0,1,0">
             <StackPanel >
-                <control:DayOfWeek x:Name="TuesdayControl"/>
+                <control:DayOfWeek x:Name="TuesdayControl" MouseDoubleClick="TuesdayControl_MouseDoubleClick"/>
             </StackPanel>
         </Border>
         <Border Grid.Row="5" Grid.Column="9"  Grid.RowSpan="2" BorderBrush="gray" BorderThickness="0,0,1,0">
             <StackPanel >
-                <control:DayOfWeek x:Name="WednesdayControl"/>
+                <control:DayOfWeek x:Name="WednesdayControl" MouseDoubleClick="WednesdayControl_MouseDoubleClick"/>
             </StackPanel>
         </Border>
 
         <Border Grid.Row="5" Grid.Column="10" Grid.RowSpan="2" BorderBrush="gray" BorderThickness="0,0,1,0">
             <StackPanel >
-                <control:DayOfWeek x:Name="ThursdayControl"/>
+                <control:DayOfWeek x:Name="ThursdayControl" MouseDoubleClick="ThursdayControl_MouseDoubleClick"/>
             </StackPanel>
         </Border>
 
         <Border Grid.Row="5" Grid.Column="11" Grid.RowSpan="2" BorderBrush="gray" BorderThickness="0,0,1,0">
             <StackPanel>
-                <control:DayOfWeek x:Name="FridayControl" />
+                <control:DayOfWeek x:Name="FridayControl" MouseDoubleClick="FridayControl_MouseDoubleClick" />
             </StackPanel>
         </Border>
 
         <Border Grid.Row="5" Grid.Column="12" Grid.RowSpan="2" BorderBrush="gray" BorderThickness="0,0,1,0">
             <StackPanel>
-                <control:DayOfWeek x:Name="SaturdayControl"/>
+                <control:DayOfWeek x:Name="SaturdayControl" MouseDoubleClick="SaturdayControl_MouseDoubleClick"/>
             </StackPanel>
         </Border>
 
         <StackPanel Grid.Row="5" Grid.Column="13" Grid.RowSpan="2">
-            <control:DayOfWeek x:Name="SundayControl"/>
+            <control:DayOfWeek x:Name="SundayControl" MouseDoubleClick="SundayControl_MouseDoubleClick"/>
         </StackPanel>
 
 
